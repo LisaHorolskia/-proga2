@@ -1,0 +1,175 @@
+1.05-5.05
+1) АСУ "тренажерний зал"
+https://drive.google.com/file/d/1NmLxl7PS0ak6D3K1FpHmn7tOvz8F_QkN/view?usp=share_link
+2) Моделювання дробів:
+https://drive.google.com/file/d/1H_29jdUsiofx9h3b9xJPRJPTwDe3zO5u/view?usp=share_link
+
+Lab 5.3.4 Gym membership management system
+Lab 5.3.5 Modelling fractions: part 1
+
+
+
+
+
+Завдання 1(5.3.4)
+
+#include <iostream>
+
+using namespace std;
+
+class Fit{
+    public:
+    void setValid(int valid){this->valid=valid;}
+    void setName(string name){this->name=name;}
+    void setId(int id){this->id=id;}
+    int getValid(){return valid;}
+    int getId(){return id;}
+    void print();
+    Fit();
+    void Delete();
+    Fit(int id, string name, int valid);
+    private:
+    int valid,id;
+    string name;
+    
+};
+void Fit::Delete(){
+    id=0;valid=0;name="";
+}
+void Fit::print(){
+    cout <<"Member "<< id << ": "<<name<<", subscription valid for "<<valid<<" months\n";
+}
+Fit::Fit(int id, string name, int valid)
+{
+	this->id = id;
+	this->name=name;
+	this->valid=valid;
+	
+}
+Fit::Fit(){id=0;valid=0;name="";}
+int main()
+{string comand="";
+Fit fit[10];
+string name=" ";
+int id,valid,MaxId=0,eid,break1;
+    while(true){
+        break1=0;
+        cout<<"Enter comand\n";
+        cin>>comand;
+        if(comand=="quit")break;
+        
+        if(comand=="create"){
+            cout<<"give id\n";
+            cin>>id;
+            cout<<"set name\n";
+           getline(cin, name, '\n');getline(cin, name, '\n');
+           MaxId++;
+            fit[MaxId].setId(id); 
+            fit[MaxId].setName(name); 
+            
+        }
+        if(comand=="add"){
+             cout<<"give id\n";
+            cin>>id;
+             cout<<"set valid\n";
+            cin>>valid;
+        for (int i = 1; i <= MaxId; i++) {
+        if(fit[i].getId()==id){fit[i].setValid(valid);break;}
+        }
+        }
+        if(comand=="cancel"){
+            cout<<"give id\n";
+            cin>>id;
+            for (int i = 1; i <= MaxId; i++) {
+        if(fit[i].getId()==id){fit[i].setValid(0);break;}
+        }
+        }
+        if(comand=="delete"){
+            cout<<"give id\n";
+            cin>>id;
+             for (int i = 1; i <= MaxId; i++) {
+        if(fit[i].getId()==id){fit[i].Delete();break;}
+        }
+        }
+        for (int i = 1; i <= MaxId; i++) {
+            if(fit[i].getId()!=0)
+            fit[i].print();
+        }
+    }
+
+    return 0;
+}
+
+
+
+
+
+Завдання 2(5.3.5)
+#include <iostream>
+#include <vector>
+#include <string>
+#include <stdio.h>
+#include <math.h>
+using namespace std;
+class Fraction{
+public:
+Fraction(int numerator, int denominator);
+string toString();
+double toDouble();
+int get_whole(){return this->whole;}
+private:
+int numerator;
+int whole;
+int denominator;
+};
+Fraction::Fraction(int numerator, int denominator)
+{
+	this->numerator = numerator;
+	this->denominator = denominator;
+	this->whole = 0;
+}
+string Fraction::toString()
+{
+	if (this->whole == 0)
+		return to_string(this->numerator) + " / " + to_string(this->denominator);
+	else
+		return to_string(this->whole) + " " + to_string(this->numerator) + " / " + to_string(this->denominator);
+}
+double Fraction::toDouble()
+{
+	double result = (double)this->numerator / (double)this->denominator;
+	return result;
+}
+vector<string> split(string line, char c)
+{
+	vector<string> result;
+	string tmpstr = "";
+	for (int i = 0; i < line.length(); i++)
+	{
+		if (line[i] != c)
+			tmpstr += line[i];
+		else
+		{
+			result.push_back(tmpstr);
+			tmpstr = "";
+		}
+	}
+
+	if (line[line.length() - 1] != ' ')
+		result.push_back(tmpstr);
+
+	return result;
+}
+int main(void) {
+int num, den;
+	char input[100];
+	cout << "Enter the fraction: ";
+	cin.getline(input, sizeof(input));
+	vector<string> out = split(input, ' ');
+	num = atoi(out[0].c_str());
+	den = atoi(out[2].c_str());
+	Fraction fraction(num, den);
+	cout << fraction.toString() << " is " << fraction.toDouble() << " in decimal" << endl;
+return 0;
+}
+
