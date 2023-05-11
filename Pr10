@@ -1,0 +1,143 @@
+17,04-21,04
+1) Створіть клас: https://drive.google.com/file/d/1_nw5sDorc0rZG3hTsYaVbRiEWpg4Hk-t/view?usp=share_link
+2) Система бронювання авіа квитків:
+https://drive.google.com/file/d/1kajBO248h-eso2dXiNOutw2VVkoWZ1r5/view?usp=share_link
+
+Lab 5.1.4 Classes and objects: ShopItemOrder
+Lab 5.3.1 Flight booking system: part 1
+
+
+Завдання 1(5.1.4)
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class ShopItemOrder
+{
+private:
+	string name;
+	double price;
+	int itemNumber;
+public:
+	void set_name(string name);
+	void set_price(double price);
+	void set_itemNumber(int itemNumb);
+	string get_name();
+	double get_price();
+	int get_itemsNumber();
+	double get_total_price();
+	void print();
+	ShopItemOrder(string name, double price, int itemNumber)
+	{
+		this->name = name;
+		this->set_price(price);
+		this->set_itemNumber(itemNumber);
+	}
+};
+void ShopItemOrder::set_name(string name)
+{
+	this->name = name;
+}
+void ShopItemOrder::set_price(double price)
+{
+	if (price >= 1)
+		this->price = price;
+	else
+		this->price = 1;
+}
+void ShopItemOrder::set_itemNumber(int itemNumb)
+{
+	if (itemNumb >= 1)
+		this->itemNumber = itemNumb;
+	else
+		this->itemNumber = 1;
+}
+string ShopItemOrder::get_name()
+{
+	return this->name;
+}
+double ShopItemOrder::get_price()
+{
+	return this->price;
+}
+int ShopItemOrder::get_itemsNumber()
+{
+	return this->itemNumber;
+}
+double ShopItemOrder::get_total_price()
+{
+	double totalPrice = 0;
+	for (int i = 0; i < this->itemNumber; i++)
+	{
+		totalPrice += this->price;
+	}
+	return totalPrice;
+}
+void ShopItemOrder::print()
+{
+	cout << "Item name: " << this->name << "\n Item price: " << this->price << "\n Number of items: " << this->itemNumber << "\n";
+}
+int main()
+{
+
+	ShopItemOrder order("Bread", 10.5, 2);
+	order.print();
+	double totalPrice = order.get_total_price();
+	cout << totalPrice;
+	
+	return 0;
+}
+
+
+
+
+
+
+Завдання 2(5.3.1)
+#include <iostream>
+
+using namespace std;
+class FlightBooking {
+public:
+FlightBooking(int id, int capacity, int reserved);
+void printStatus();
+private:
+int id;
+int capacity;
+int reserved;
+};
+void FlightBooking::printStatus()
+{
+double percent = 0;
+	
+	
+		percent = 100.0 * ((double)this->reserved / this->capacity);
+		printf("Flight %d: %d/%d (%lf) seats taken", this->id, this->reserved, this->capacity, percent);
+	
+    
+}
+
+FlightBooking::FlightBooking(int id, int capacity, int reserved)
+{
+this->id = id;
+	this->capacity=capacity;
+	this->reserved=reserved;
+	if (this->reserved > this->capacity)
+	{
+		reserved = 0;
+		cout << "Cannot perform this operation \n";
+	}
+}
+int main() {
+int reserved = 0,
+capacity = 0;
+cout << "Provide flight capacity: ";
+cin >> capacity;
+cout << "Provide number of reserved seats: ";
+cin >> reserved;
+FlightBooking booking(1, capacity, reserved);
+booking.printStatus();
+return 0;
+}
+
